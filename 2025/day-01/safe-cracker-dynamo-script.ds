@@ -1,0 +1,31 @@
+url = "C:\\Users\\abear\\OneDrive - Wessex Water\\code\\github\\advent-of-code\\2025\\day-01\\input.txt";
+read = FileSystem.ReadText(url);
+split_lines = String.Replace(read, "\n", ",");
+split_values = String.Split(split_lines, [","]);
+replace_L = String.Replace(split_values, "L", "-");
+replace_R = String.Replace(replace_L, "R", "");
+toNum = String.ToNumber(replace_R);
+AddtoFront = List.AddItemToFront(1050, toNum);
+
+numbers = AddtoFront;
+
+imper = [Imperative]
+{
+    // Input: list of numbers
+    result = [];
+
+    // Start with the first item
+    result[0] = numbers[0];
+
+    // Loop through the list starting from index 1
+    for (i in 1..(List.Count(numbers)-1))
+    {
+        result[i] = result[i-1] + numbers[i];
+    }
+
+    return = result;
+};
+
+mod = imper % 100;
+remain_0 = mod == 0;
+true_zeros = List.CountTrue(remain_0);

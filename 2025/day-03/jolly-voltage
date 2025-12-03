@@ -1,0 +1,71 @@
+# Advent of Code 2025 - Day 03
+import requests
+
+#  Get input data from GitHub, couldn't use Advent of Code site directly
+url = "https://raw.githubusercontent.com/adambear82/advent-of-code/refs/heads/main/2025/day-03/input.txt"
+resp = requests.get(url, timeout=10)
+url_text = resp.text.strip().splitlines()
+
+# For debugging, here's a sample input list
+# url_text = ["987654321111111", "811111111111119", "234234234234278", "818181911112111"]
+
+# part 1 - Function to find the maximum two-digit number from any two digits in the string
+def max_two_digit_simple(s):
+    max_num = -1
+    for i in range(len(s) - 1):
+        for j in range(i + 1, len(s)):
+            num = int(s[i] + s[j])  # string concatenation of two digits
+            if num > max_num:
+                max_num = num
+    return max_num
+
+# initialize variables
+results = []
+sum_results = 0
+results_k = []
+sum_results_k = 0
+
+# process each input string
+for i in url_text:
+    result = max_two_digit_simple(i)
+    results.append(result)
+    sum_results += result
+
+# part 1 output
+# print(sum_results, results)
+
+# part 2 - Function to find the maximum k-digit number from any k digits in the string
+def max_k_digits_simple(s: str, k: int) -> str | None:
+    n = len(s)
+    if k > n:
+        return None
+    if k == n:
+        return s
+
+    res = []
+    start = 0
+    for remaining in range(k, 0, -1):
+        # We must choose the next digit from s[start : n - remaining + 1]
+        end = n - remaining + 1
+        # Find the maximum digit and its index in the allowed window
+        max_digit = '0'
+        max_idx = start
+        for i in range(start, end):
+            if s[i] > max_digit:
+                max_digit = s[i]
+                max_idx = i
+                if max_digit == '9':  # early break: can't beat '9'
+                    break
+        res.append(max_digit)
+        start = max_idx + 1  # move past the chosen index
+
+    return int(''.join(res))
+
+# process each input string
+for i in url_text:
+    result_k = max_k_digits_simple(i, 12)
+    results_k.append(result_k)
+    sum_results_k += result_k
+
+# part 2 output
+print(results_k, sum_results_k)

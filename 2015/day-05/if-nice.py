@@ -7,6 +7,18 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.vibes import get_raw
 dash = "-" * 20
 
+partone = """
+┏━┓┏━┓┏━┓╺┳╸   ╻
+┣━┛┣━┫┣┳┛ ┃    ┃
+╹  ╹ ╹╹┗╸ ╹    ╹
+"""
+
+parttwo = """
+┏━┓┏━┓┏━┓╺┳╸   ╻╻
+┣━┛┣━┫┣┳┛ ┃    ┃┃
+╹  ╹ ╹╹┗╸ ╹    ╹╹
+"""
+
 url_text = get_raw(day=5, year=2015)
 url_text = url_text.strip().splitlines()
 # url_text = url_text[:10]
@@ -49,6 +61,7 @@ for i in url_text:
 
 # print(dash)
 # print("\n".join(url_text))
+print(partone)
 print(dash)
 print(f"part 1 kept: {len(kept)}")
 print(f"part 1 drop: {len(dropped)}")
@@ -94,6 +107,7 @@ for i in url_text:
     else:
         dropped.append(i)
 
+print(parttwo)
 print(dash)
 print(f"part 2 kept: {len(kept)}")
 print(f"part 2 drop: {len(dropped)}")
